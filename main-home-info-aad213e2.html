@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乐鱼体育 · 知识库入口</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f4f6fa;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        /* ----- 深色头图 ----- */
+        .hero {
+            background: linear-gradient(145deg, #0d111a 0%, #1a2333 100%);
+            color: #e9edf5;
+            padding: 4rem 2rem 3.2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(to top, #f4f6fa, transparent);
+        }
+
+        .hero h1 {
+            font-size: 2.3rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero h1 span {
+            color: #78c0ff;
+        }
+
+        .hero p {
+            max-width: 720px;
+            margin: 0.5rem auto 0;
+            font-size: 1.1rem;
+            color: #b0c4de;
+        }
+
+        /* ----- 主体容器 ----- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem 3.5rem;
+        }
+
+        /* ----- 目录感布局（卡片网格） ----- */
+        .directory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: -0.8rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 1.6rem 1.4rem;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.03);
+            transition: transform 0.15s ease, box-shadow 0.2s ease;
+            border: 1px solid #eef2f7;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(0,30,60,0.08);
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #0b1a2e;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .card h3 i {
+            color: #2b77c0;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 1.1rem;
+        }
+
+        .card p, .card ul {
+            font-size: 0.95rem;
+            color: #334155;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card ul li {
+            padding: 0.2rem 0;
+            display: flex;
+            gap: 0.4rem;
+        }
+
+        .card ul li::before {
+            content: "·";
+            color: #3b82c4;
+            font-weight: 700;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #e6eff9;
+            color: #1a4c7a;
+            border-radius: 30px;
+            padding: 0.1rem 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            margin-top: 0.5rem;
+        }
+
+        /* ----- 说明区（介绍与可信说明） ----- */
+        .intro-section {
+            margin: 2.8rem 0 2.2rem;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 2rem 2rem 2.2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            border: 1px solid #e6ecf3;
+        }
+
+        .intro-section h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #0a1a2b;
+            margin-bottom: 1rem;
+            border-left: 4px solid #3b82c4;
+            padding-left: 1rem;
+        }
+
+        .intro-section p {
+            margin-bottom: 0.9rem;
+            font-size: 1rem;
+            color: #1e2b3c;
+        }
+
+        .intro-section strong {
+            color: #0e253f;
+        }
+
+        .link-em {
+            color: #1f6fb5;
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 1px dotted #7fa9d6;
+            transition: border 0.15s;
+        }
+
+        .link-em:hover {
+            border-bottom: 2px solid #1f6fb5;
+        }
+
+        /* ----- 提示区 ----- */
+        .notice-box {
+            background: #eef5fc;
+            border-radius: 18px;
+            padding: 1.5rem 1.8rem;
+            margin: 1.8rem 0 2.2rem;
+            border-left: 5px solid #2a7ac6;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 0.5rem 1.2rem;
+        }
+
+        .notice-box .icon-symbol {
+            font-size: 1.8rem;
+            line-height: 1;
+            color: #2a7ac6;
+            flex-shrink: 0;
+        }
+
+        .notice-content {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .notice-content h4 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #11325a;
+            margin-bottom: 0.3rem;
+        }
+
+        .notice-content p {
+            color: #1f3d5e;
+            font-size: 0.95rem;
+        }
+
+        /* ----- 相关信息区 (FAQ 摘要) ----- */
+        .faq-preview {
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+            margin: 2rem 0 1.2rem;
+        }
+
+        .faq-item {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 1.1rem 1.4rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            border: 1px solid #e2eaf3;
+        }
+
+        .faq-item summary {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #152b42;
+            cursor: default;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .faq-item summary::before {
+            content: "❓";
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .faq-item p {
+            margin-top: 0.45rem;
+            color: #2f4058;
+            font-size: 0.93rem;
+            padding-left: 1.5rem;
+        }
+
+        .faq-highlight {
+            background: #f8faff;
+            border-left: 4px solid #80b5e3;
+        }
+
+        /* ----- 水平分隔 ----- */
+        .divider {
+            margin: 2rem 0 1rem;
+            height: 1px;
+            background: linear-gradient(to right, #d6e0ea, transparent);
+        }
+
+        /* ----- 辅助文字 ----- */
+        .footnote {
+            font-size: 0.85rem;
+            color: #65748a;
+            text-align: center;
+            margin-top: 2.5rem;
+            border-top: 1px solid #dce4ed;
+            padding-top: 1.2rem;
+        }
+
+        /* 响应式 */
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 1.8rem; }
+            .hero { padding: 3rem 1.2rem 2.5rem; }
+            .intro-section { padding: 1.4rem; }
+            .notice-box { padding: 1.2rem; }
+            .directory-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 深色头图 -->
+    <section class="hero">
+        <h1>📚 <span>乐鱼体育</span> · 信息指引</h1>
+        <p>站点知识库 · 可信说明 · 场景速览</p>
+    </section>
+
+    <div class="container">
+
+        <!-- 目录感卡片网格 -->
+        <div class="directory-grid">
+            <div class="card">
+                <h3><i>📋</i> 站点定位</h3>
+                <p>提供体育资讯、赛事动态及用户交流的线上平台。内容覆盖多元体育项目与社区互动。</p>
+                <span class="tag">综合体育</span>
+            </div>
+            <div class="card">
+                <h3><i>🔍</i> 信息原则</h3>
+                <ul>
+                    <li>内容基于公开数据整理</li>
+                    <li>持续更新，保持时效性</li>
+                    <li>引用来源可追溯</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3><i>🧩</i> 适用场景</h3>
+                <p>查询体育资讯、关注赛事进展、了解运动知识。适合爱好者及一般浏览者。</p>
+            </div>
+            <div class="card">
+                <h3><i>⚙️</i> 浏览建议</h3>
+                <p>推荐使用主流浏览器，确保页面功能完整。移动端与桌面端均可正常阅读。</p>
+            </div>
+        </div>
+
+        <!-- 说明区：从站点介绍与可信说明展开 -->
+        <section class="intro-section">
+            <h2>关于本信息页</h2>
+            <p>
+                本页面作为 <strong>知识型入口</strong>，围绕「乐鱼体育」这一站点整理基础信息与使用参考。
+                对于希望了解站点背景、内容侧重及可信依据的访客，这里提供简洁的结构化说明。
+            </p>
+            <p>
+                <a href="https://main-home-leyu.com.cn" class="link-em">乐鱼体育</a> 
+                是一个以体育内容为核心的线上空间，涵盖即时资讯、赛事复盘、运动科普等模块。
+                站点内容由运营团队与用户共同丰富，信息呈现中立、克制，不涉及竞技博彩或违规诱导。
+                所有引用均尽力标注来源或遵照平台规范，以保障阅读透明度。
+            </p>
+            <p>
+                我们鼓励访客通过站点内的“帮助中心”或“关于我们”查阅更详尽的说明。
+                同时，任何对内容的疑问或修正建议，均可通过站内反馈渠道沟通。
+            </p>
+        </section>
+
+        <!-- 提示区 -->
+        <div class="notice-box">
+            <div class="icon-symbol">📌</div>
+            <div class="notice-content">
+                <h4>查阅提示</h4>
+                <p>
+                    本入口页为信息汇总，不替代原始站点功能。如需获取实时数据、个人账户服务或参与互动，
+                    请直接访问 <a href="https://main-home-leyu.com.cn" class="link-em">乐鱼体育</a> 主站。
+                    请根据自身需求合理使用网络资源。
+                </p>
+            </div>
+        </div>
+
+        <!-- 相关信息区（FAQ 摘要） -->
+        <div style="margin: 1.2rem 0 0.4rem;">
+            <h3 style="font-weight: 600; color: #0d1f33; font-size: 1.2rem; border-bottom: 2px solid #d4e2f0; padding-bottom: 0.3rem;">常见问题摘要</h3>
+        </div>
+        <div class="faq-preview">
+            <div class="faq-item">
+                <summary>乐鱼体育 的信息更新频率？</summary>
+                <p>主要板块随赛事及新闻动态日常更新，重大事件期间加速。具体以站点实际内容为准。</p>
+            </div>
+            <div class="faq-item faq-highlight">
+                <summary>是否需要注册才能浏览？</summary>
+                <p>大部分资讯内容可直接浏览；部分互动或个性化功能可能需要注册账户，详见站点指引。</p>
+            </div>
+            <div class="faq-item">
+                <summary>内容可信度如何？</summary>
+                <p>站点注重信息真实性，采用多源比对与人工审核相结合的方式。用户亦可参考文中标注的参考资料。</p>
+            </div>
+        </div>
+
+        <!-- 附加相关信息区：简明场景 -->
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.8rem; background: #ffffff; border-radius: 16px; padding: 1.2rem 1.5rem; border: 1px solid #e3eaf2;">
+            <div style="flex: 1; min-width: 150px;">
+                <h4 style="font-weight: 600; color: #1b3757; font-size: 1rem; margin-bottom: 0.2rem;">📰 新闻阅览</h4>
+                <p style="font-size: 0.9rem; color: #364d67;">查看当日体育热点与深度报道。</p>
+            </div>
+            <div style="flex: 1; min-width: 150px;">
+                <h4 style="font-weight: 600; color: #1b3757; font-size: 1rem; margin-bottom: 0.2rem;">🏅 赛事专题</h4>
+                <p style="font-size: 0.9rem; color: #364d67;">聚合特定赛事或联赛的系列内容。</p>
+            </div>
+            <div style="flex: 1; min-width: 150px;">
+                <h4 style="font-weight: 600; color: #1b3757; font-size: 1rem; margin-bottom: 0.2rem;">📖 运动百科</h4>
+                <p style="font-size: 0.9rem; color: #364d67;">规则、历史、术语等基础知识库。</p>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="footnote">
+            © 本入口页仅为信息参考 · 具体内容以 <a href="https://main-home-leyu.com.cn" class="link-em">乐鱼体育</a> 官方发布为准
+        </div>
+
+    </div>
+</body>
+</html>
